@@ -18,6 +18,8 @@ public:
 
     Class getClass();
 
+    int getSize() const;
+
 private:
     std::vector<double> v;
     Class c;

@@ -6,13 +6,20 @@
 #define PI_INF442_DATASET_H
 
 #include <vector>
+#include <string>
 #include "Token.h"
 
 class Dataset {
 public:
-    Dataset();
+    explicit Dataset(const std::string &dataFile, const std::string &labelFile);
 
     std::vector<Token> &getTokens();
+
+    Token &getToken(int i);
+
+    int getSize() const;
+
+    int getDimension() const;
 
 private:
     std::vector<Token> tokens;

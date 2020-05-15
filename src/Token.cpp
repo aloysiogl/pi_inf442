@@ -20,3 +20,7 @@ void Token::setClass(Class c) {
 Class Token::getClass() {
     return c;
 }
+
+int Token::getSize() const {
+    return v.size();
+}

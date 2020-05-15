@@ -10,9 +10,11 @@
 
 class Classificator {
 public:
-    explicit Classificator(Dataset &dataset);
+    explicit Classificator(Dataset &trainDataset);
 
     virtual Class classify(Token &token) = 0;
+
+    virtual std::vector<Class> classify(Dataset &testDataset);
 
 private:
     Dataset &dataset;
