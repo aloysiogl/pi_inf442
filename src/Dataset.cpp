@@ -2,18 +2,93 @@
 // Created by igor on 15/05/2020.
 //
 
-#include <fstream>
+#include <complex>
 #include <string>
 #include <sstream>
 #include "Dataset.h"
+#include "cnpy/cnpy.h"
 
-Dataset::Dataset(const std::string &dataFile, const std::string &labelFile, ClassificationType type) : type(type) {
-    std::ifstream data(dataFile);
+Dataset::Dataset(const std::string &name, ClassificationType type) : type(type) {
+    loadNpy(name);
+}
+
+std::vector<Token> &Dataset::getTokens() {
+    return tokens;
+}
+
+int Dataset::size() const {
+    return tokens.size();
+}
+
+int Dataset::dimension() const {
+    if (!tokens.empty())
+        return tokens[0].size();
+    else return 0;
+}
+
+ClassificationType Dataset::getType() const {
+    return type;
+}
+
+Token &Dataset::operator[](int idx) {
+    return tokens[idx];
+}
+
+void Dataset::loadNpy(const std::string &name) {
+    const int dsize = 1024;
+    const int lsize = 24;
+
+    std::string path("../data/representation." + name + ".npy");
+    cnpy::NpyArray dataArr = cnpy::npy_load(path);
+    auto *data = dataArr.data<float>();
+
+    path = "../data/true_labels." + name + ".npy";
+    cnpy::NpyArray labelArr = cnpy::npy_load(path);
+    auto labels = *labelArr.data_holder;
+
+    assert(dataArr.shape[0] == labelArr.shape[0]);
+    int n = dataArr.shape[0];
+
+    tokens.reserve(n);
+
+    for (int i = 0; i < n; i++) {
+        std::vector<double> v(dsize);
+        for (int j = 0; j < dsize; j++)
+            v[j] = (double) data[dsize * i + j];
+
+        std::string className;
+        for (int j = 0; j < lsize; j++)
+            if (labels[i * lsize + j] != '\0')
+                className.push_back(labels[i * lsize + j]);
+
+        Class c = O;
+        if (className == "O")
+            c = O;
+        else if (className == "I-MISC" || className == "B-MISC")
+            c = MISC;
+        else if (className == "I-PER" || className == "B-PER")
+            c = PER;
+        else if (className == "I-LOC" || className == "B-LOC")
+            c = LOC;
+        else if (className == "I-ORG" || className == "B-ORG")
+            c = ORG;
+        else
+            throw std::invalid_argument("Label type " + className + " not recognized in line " +
+                                        std::to_string(tokens.size()));
+
+        tokens.emplace_back(Token(v, c));
+    }
+}
+
+void Dataset::loadCsv(const std::string &dataName) {
+    std::string path("../data/");
+    std::ifstream data(path + "representation." + dataName + ".csv");
+    std::ifstream label(path + "true_labels." + dataName + ".csv");
     if (data.fail())
-        throw std::invalid_argument("Dataset file " + dataFile + " not found.");
-    std::ifstream label(labelFile);
+        throw std::invalid_argument("Dataset file " + dataName + " not found.");
+
     if (label.fail())
-        throw std::invalid_argument("Dataset file " + labelFile + " not found.");
+        throw std::invalid_argument("Label file " + dataName + " not found.");
 
     std::vector<double> row;
     Class c;
@@ -53,26 +128,4 @@ Dataset::Dataset(const std::string &dataFile, const std::string &labelFile, Clas
 
     data.close();
     label.close();
-}
-
-std::vector<Token> &Dataset::getTokens() {
-    return tokens;
-}
-
-int Dataset::size() const {
-    return tokens.size();
-}
-
-int Dataset::dimension() const {
-    if (!tokens.empty())
-        return tokens[0].size();
-    else return 0;
-}
-
-ClassificationType Dataset::getType() const {
-    return type;
-}
-
-Token &Dataset::operator[](int idx) {
-    return tokens[idx];
 }

@@ -8,8 +8,8 @@
 
 int main() {
     ClassificationType type = BINARY;
-    Dataset train("../data/representation.train.csv", "../data/true_labels.train.csv", type);
-    Dataset test("../data/representation.testa.csv", "../data/true_labels.testa.csv", type);
+    Dataset train("train-sample", type);
+    Dataset test("testa-sample", type);
     KnnClassifier classifier(train, 5);
     Analyzer analyzer(classifier);
     analyzer.analyze(test);
