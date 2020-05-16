@@ -9,7 +9,7 @@
 
 class Analyzer {
 public:
-    explicit Analyzer(Classifier &classificator);
+    explicit Analyzer(Classifier &classifier);
 
     void analyze(Dataset &testDataset);
 
@@ -39,7 +39,7 @@ public:
     double fScore(Class c = PER);
 
 private:
-    Classifier &classificator;
+    Classifier &classifier;
     std::vector<std::vector<int>> confusionMatrix;
     int nClasses;
 };

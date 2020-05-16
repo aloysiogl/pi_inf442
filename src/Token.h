@@ -14,11 +14,17 @@ public:
 
     Token(std::vector<double> &v, Class c = UNDEFINED);
 
+    std::vector<double> &getData();
+
     void setClass(Class c);
 
     Class getClass();
 
-    int getSize() const;
+    int size() const;
+
+    double& operator[](int idx);
+
+    double dist(Token &t);
 
 private:
     std::vector<double> v;

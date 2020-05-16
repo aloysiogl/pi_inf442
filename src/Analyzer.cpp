@@ -6,27 +6,27 @@
 #include <iostream>
 #include "Analyzer.h"
 
-Analyzer::Analyzer(Classifier &classificator) : classificator(classificator) {
-    if (classificator.getType() == BINARY)
+Analyzer::Analyzer(Classifier &classifier) : classifier(classifier) {
+    if (classifier.getType() == BINARY)
         nClasses = 2;
     else nClasses = N_CLASSES;
     confusionMatrix.assign(nClasses + 1, std::vector<int>(nClasses + 1, 0));
 }
 
 void Analyzer::analyze(Dataset &testDataset) {
-    auto classes = classificator.classify(testDataset);
+    auto classes = classifier.classify(testDataset);
 
-    if (classificator.getType() == BINARY) {
-        for (int i = 0; i < testDataset.getSize(); i++) {
+    if (classifier.getType() == BINARY) {
+        for (int i = 0; i < testDataset.size(); i++) {
             Class ci = classes[i];
-            Class cj = testDataset.getToken(i).getClass();
+            Class cj = testDataset[i].getClass();
             int mi = ci != PER, mj = cj != PER;
             confusionMatrix[mi][mj]++;
         }
     } else {
-        for (int i = 0; i < testDataset.getSize(); i++) {
+        for (int i = 0; i < testDataset.size(); i++) {
             Class ci = classes[i];
-            Class cj = testDataset.getToken(i).getClass();
+            Class cj = testDataset[i].getClass();
             confusionMatrix[ci][cj]++;
         }
     }
@@ -44,7 +44,7 @@ void Analyzer::analyze(Dataset &testDataset) {
             s += confusionMatrix[i][j];
         confusionMatrix[nClasses][j] = s;
     }
-    confusionMatrix[nClasses][nClasses] = testDataset.getSize();
+    confusionMatrix[nClasses][nClasses] = testDataset.size();
 }
 
 void Analyzer::printAnalysis() {
