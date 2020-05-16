@@ -11,10 +11,13 @@
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
+using Eigen::RowVectorXd;
 
 class LinearRegression : public Classifier {
 public:
     LinearRegression(Dataset& dataset);
+
+    Class classify(Token& token);
 
 private:
     void train();
