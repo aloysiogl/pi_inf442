@@ -23,9 +23,13 @@ public:
 
     int dimension() const;
 
+    Dataset getBinary(Class c);
+
     ClassificationType getType() const;
 
     Token& operator[](int idx);
+
+    void setType(ClassificationType type);
 
 private:
     std::vector<Token> tokens;

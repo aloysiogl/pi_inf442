@@ -50,3 +50,14 @@ Class LinearRegression::classify(Token &token) {
 
     return clf;
 }
+
+double LinearRegression::classificationProbability(Class c, Token &token) {
+    RowVectorXd vec(dataset.dimension() + 1);
+    for (int i = 1; i < dataset.dimension()+1; ++i)
+        vec[i] = token[i-1];
+    vec[0] = 1.0;
+
+    RowVectorXd pred = vec*B;
+
+    return pred[(int) c];
+}

@@ -15,10 +15,11 @@ using Eigen::MatrixXd;
 
 class LogisticRegression : public Classifier {
 public:
-    LogisticRegression(Dataset& dataset);
+    LogisticRegression(Dataset& dataset, int MAX_ITER = 10);
 
     Class classify(Token& token);
 
+    double classificationProbability(Class c, Token& token);
 
 private:
     void train();
@@ -26,6 +27,7 @@ private:
     VectorXd grad(VectorXd& b, VectorXd& z, MatrixXd& X);
     MatrixXd lapla(VectorXd &beta, MatrixXd &X);
     VectorXd b;
+    int MAX_ITER;
 };
 
 

@@ -4,7 +4,7 @@
 
 #include <ctime>
 #include <iostream>
-#include "LinearRegression.h"
+#include "OVRClassifier.h"
 #include "Analyzer.h"
 
 int main(){
@@ -19,12 +19,12 @@ int main(){
 
 
     time(&t1);
-    LinearRegression regression(train);
+    OVRClassifier classifier(train, LINEAR_REGRESSION);
     time(&t2);
     std::cout << "Time for the training step: " << t2-t1 << "s\n";
 
     time(&t1);
-    Analyzer analyzer(regression);
+    Analyzer analyzer(classifier);
     analyzer.analyze(test);
     analyzer.printAnalysis();
     time(&t2);

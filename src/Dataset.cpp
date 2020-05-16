@@ -76,3 +76,19 @@ ClassificationType Dataset::getType() const {
 Token &Dataset::operator[](int idx) {
     return tokens[idx];
 }
+
+Dataset Dataset::getBinary(Class c) {
+    Dataset newDataset = *this;
+    newDataset.setType(BINARY);
+    for (int i = 0; i < size(); ++i){
+        if ((Class)(*this)[i].getClass() == c)
+            newDataset[i].setClass((Class) 0);
+        else newDataset[i].setClass((Class) 1);
+    }
+
+    return newDataset;
+}
+
+void Dataset::setType(ClassificationType type) {
+    this->type = type;
+}
