@@ -46,7 +46,7 @@ Dataset::Dataset(const std::string &dataFile, const std::string &labelFile, Clas
         if (type == BINARY && (c == MISC || c == LOC || c == ORG))
             c = O;
 
-        if (!tokens.empty() && tokens[0].getSize() != row.size())
+        if (!tokens.empty() && tokens[0].size() != row.size())
             throw std::invalid_argument("Row " + std::to_string(tokens.size()) + " in dataset has inconsistent size");
         tokens.emplace_back(Token(row, c));
     }
@@ -59,20 +59,20 @@ std::vector<Token> &Dataset::getTokens() {
     return tokens;
 }
 
-Token &Dataset::getToken(int i) {
-    return tokens[i];
-}
-
-int Dataset::getSize() const {
+int Dataset::size() const {
     return tokens.size();
 }
 
-int Dataset::getDimension() const {
+int Dataset::dimension() const {
     if (!tokens.empty())
-        return tokens[0].getSize();
+        return tokens[0].size();
     else return 0;
 }
 
 ClassificationType Dataset::getType() const {
     return type;
+}
+
+Token &Dataset::operator[](int idx) {
+    return tokens[idx];
 }

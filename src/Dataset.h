@@ -19,13 +19,13 @@ public:
 
     std::vector<Token> &getTokens();
 
-    Token &getToken(int i);
+    int size() const;
 
-    int getSize() const;
-
-    int getDimension() const;
+    int dimension() const;
 
     ClassificationType getType() const;
+
+    Token& operator[](int idx);
 
 private:
     std::vector<Token> tokens;
