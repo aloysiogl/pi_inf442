@@ -6,15 +6,17 @@
 #define PI_INF442_LINEARREGRESSION_H
 
 
-#include "Classificator.h"
+#include "Classifier.h"
 #include <Eigen/Dense>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
-class LinearRegression : public Classificator {
+class LinearRegression : public Classifier {
 public:
     LinearRegression(Dataset& dataset);
+
+    Class classify(Token& token);
 
 private:
     void train();

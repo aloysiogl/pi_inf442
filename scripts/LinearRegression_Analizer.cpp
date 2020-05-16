@@ -4,6 +4,7 @@
 
 #include <ctime>
 #include <iostream>
+#include "LinearRegression.h"
 #include "Dataset.h"
 
 int main(){
@@ -15,6 +16,10 @@ int main(){
     time(&t2);
     std::cout << "Duration of file read: " << t2-t1 << "s\n";
 
+    time(&t1);
+    LinearRegression regression(train);
+    time(&t2);
+    std::cout << "Time for the training step: " << t2-t1 << "s\n";
 
 
 }
