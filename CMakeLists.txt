@@ -12,10 +12,11 @@ include_directories(src)
 include_directories(third_party)
 
 add_subdirectory(third_party/ann_1.1.2)
+add_subdirectory(third_party/cnpy)
 
 file(GLOB_RECURSE src src/*.cpp src/*.h)
 add_library(src ${src})
-target_link_libraries(src ann Eigen3::Eigen)
+target_link_libraries(src ann Eigen3::Eigen cnpy)
 
 file(GLOB scripts scripts/*.cpp)
 foreach (file ${scripts})

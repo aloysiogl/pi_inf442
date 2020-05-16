@@ -6,6 +6,7 @@
 #define PI_INF442_DATASET_H
 
 #include <vector>
+#include <fstream>
 #include <string>
 #include "Token.h"
 
@@ -15,7 +16,7 @@ enum ClassificationType {
 
 class Dataset {
 public:
-    explicit Dataset(const std::string &dataFile, const std::string &labelFile, ClassificationType type = NER);
+    explicit Dataset(const std::string &name, ClassificationType type = NER);
 
     std::vector<Token> &getTokens();
 
@@ -34,6 +35,10 @@ public:
 private:
     std::vector<Token> tokens;
     ClassificationType type;
+
+    void loadNpy(const std::string &name);
+
+    void loadCsv(const std::string &name);
 };
 
 
