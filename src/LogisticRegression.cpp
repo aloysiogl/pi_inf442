@@ -5,7 +5,8 @@
 #include "LogisticRegression.h"
 #include <iostream>
 
-LogisticRegression::LogisticRegression(Dataset &dataset) : Classifier(dataset) {
+LogisticRegression::LogisticRegression(Dataset &dataset, int MAX_ITER) : Classifier(dataset) {
+    this->MAX_ITER = MAX_ITER;
     train();
 }
 
@@ -32,11 +33,9 @@ void LogisticRegression::train() {
     }
 
 
-    for (int i = 0; i < 10; ++i){
+    for (int i = 0; i < MAX_ITER; ++i){
         VectorXd beta = b;
         b = beta - lapla(beta, X).inverse()*grad(beta, z, X);
-//        std::cout << (beta-b).norm() << "here\n";
-        std::cout << grad(beta, z, X).norm() << "\n";
     }
 }
 
@@ -53,8 +52,8 @@ Class LogisticRegression::classify(Token &token) {
     double p1 = sig(vec*b);
 
     if (p1 >= 0.5)
-        return (Class) 0;
-    return  (Class) 1;
+        return (Class) 1;
+    return  (Class) 0;
 }
 
 VectorXd LogisticRegression::grad(VectorXd &beta, VectorXd &z, MatrixXd &X) {
@@ -77,4 +76,17 @@ MatrixXd LogisticRegression::lapla(VectorXd &beta, MatrixXd &X) {
         sum += prob*(1-prob)*((X.row(i).transpose())*X.row(i));
     }
     return -sum;
+}
+
+double LogisticRegression::classificationProbability(Class c, Token& token) {
+    RowVectorXd vec(dataset.dimension() + 1);
+    for (int i = 1; i < dataset.dimension()+1; ++i)
+        vec[i] = token[i-1];
+    vec[0] = 1.0;
+
+    double p1 = sig(vec*b);
+
+    if ((int) c == 0)
+        return 1-p1;
+    return p1;
 }

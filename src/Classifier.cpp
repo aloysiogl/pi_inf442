@@ -17,3 +17,7 @@ std::vector<Class> Classifier::classify(Dataset &testDataset) {
 ClassificationType Classifier::getType() {
     return type;
 }
+
+double Classifier::classificationProbability(Class c, Token &token) {
+    throw "Probability for classification not implemented on this classifier";
+}
