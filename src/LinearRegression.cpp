@@ -15,7 +15,7 @@ void LinearRegression::train() {
     // Reading data and transferring to observation matrix
     for (int i = 0; i < dataset.size(); ++i){
         for (int j = 1; j < dataset.dimension()+1; ++j)
-            X(i, j) = dataset[i][j];
+            X(i, j) = dataset[i][j-1];
         X(i, 0) = 1.0;
     }
 
@@ -30,23 +30,23 @@ void LinearRegression::train() {
         }
     }
 
-//    X.rowwise().normalize();
+    MatrixXd Xt = X.transpose();
 
-//    MatrixXd Xt = X.transpose();
-
-//    B.resize(dataset.dimension()+1, (int) N_CLASSES);
-
-//    B = (Xt*X).inverse()*Xt;
-//    MatrixXd I(dataset.dimension()+1, dataset.dimension()+1);
-//    I.setIdentity();
-
-//    std::cout << I;
-//    std::cout << (Xt*X).determinant();
-    std::cout << X;
-
-//    std::cout << (Xt*X+I).inverse();
+    B = (Xt*X).inverse()*Xt*Z;
 }
 
 Class LinearRegression::classify(Token &token) {
-    return UNDEFINED;
+    RowVectorXd vec(dataset.dimension() + 1);
+    for (int i = 1; i < dataset.dimension()+1; ++i)
+        vec[i] = token[i-1];
+    vec[0] = 1.0;
+
+    RowVectorXd pred = vec*B;
+
+    auto clf = (Class) 0;
+    for (int i = 0; i < N_CLASSES; ++i)
+        if (pred[i] > pred[(int) clf])
+            clf = (Class) i;
+
+    return clf;
 }

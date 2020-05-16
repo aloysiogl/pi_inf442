@@ -11,6 +11,7 @@
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
+using Eigen::RowVectorXd;
 
 class LinearRegression : public Classifier {
 public:
