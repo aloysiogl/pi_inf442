@@ -4,6 +4,7 @@
 
 #include "OVRClassifier.h"
 #include "LinearRegression.h"
+#include "LogisticRegression.h"
 
 OVRClassifier::OVRClassifier(Dataset &dataset, BaseClassifier classifier) : Classifier(dataset) {
     this->baseClassifier = classifier;
@@ -13,9 +14,11 @@ OVRClassifier::OVRClassifier(Dataset &dataset, BaseClassifier classifier) : Clas
 }
 
 void OVRClassifier::train() {
-    if (baseClassifier == LINEAR_REGRESSION){
-        for (int i = 0; i < N_CLASSES; ++i)
+    for (int i = 0; i < N_CLASSES; ++i){
+        if (baseClassifier == LINEAR_REGRESSION)
             classifiers.push_back(new LinearRegression(datasets[i]));
+        else if (baseClassifier == LOGISTIC_REGRESSION)
+            classifiers.push_back(new LogisticRegression(datasets[i]));
     }
 }
 
@@ -30,4 +33,10 @@ Class OVRClassifier::classify(Token &token) {
         }
     }
     return (Class) clf;
+}
+
+OVRClassifier::~OVRClassifier() {
+    for (auto p: classifiers)
+        delete p;
+    classifiers.clear();
 }

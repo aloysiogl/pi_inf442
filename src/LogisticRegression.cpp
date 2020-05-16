@@ -36,6 +36,7 @@ void LogisticRegression::train() {
     for (int i = 0; i < MAX_ITER; ++i){
         VectorXd beta = b;
         b = beta - lapla(beta, X).inverse()*grad(beta, z, X);
+        std::cout << "Iteration: " << i+1 << " of " << MAX_ITER << "\n";
     }
 }
 

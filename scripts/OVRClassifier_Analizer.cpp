@@ -19,7 +19,7 @@ int main(){
 
 
     time(&t1);
-    OVRClassifier classifier(train, LINEAR_REGRESSION);
+    OVRClassifier classifier(train, LOGISTIC_REGRESSION);
     time(&t2);
     std::cout << "Time for the training step: " << t2-t1 << "s\n";
 
