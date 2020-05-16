@@ -18,15 +18,15 @@ void Analyzer::analyze(Dataset &testDataset) {
 
     if (classifier.getType() == BINARY) {
         for (int i = 0; i < testDataset.size(); i++) {
-            Class ci = classes[i];
-            Class cj = testDataset[i].getClass();
+            Class cj = classes[i];
+            Class ci = testDataset[i].getClass();
             int mi = ci != PER, mj = cj != PER;
-            confusionMatrix[mi][mj]++;
+            confusionMatrix[mi] [mj]++;
         }
     } else {
         for (int i = 0; i < testDataset.size(); i++) {
-            Class ci = classes[i];
-            Class cj = testDataset[i].getClass();
+            Class cj = classes[i];
+            Class ci = testDataset[i].getClass();
             confusionMatrix[ci][cj]++;
         }
     }
@@ -48,7 +48,7 @@ void Analyzer::analyze(Dataset &testDataset) {
 }
 
 void Analyzer::printAnalysis() {
-    std::cout << "CONFUSION MATRIX: (Predicted \u2192 x Classified \u2193)" << std::endl;
+    std::cout << "CONFUSION MATRIX: (Predicted \u2192 x Actual \u2193)" << std::endl;
     std::cout << std::setw(5) << "";
     for (int j = 0; j < nClasses; j++)
         std::cout << std::setw(4) << to_string((Class) j) << " ";
@@ -56,7 +56,7 @@ void Analyzer::printAnalysis() {
     for (int i = 0; i <= nClasses; i++) {
         if (i != nClasses)
             std::cout << std::setw(4) << to_string((Class) i) << " ";
-        else     std::cout << std::setw(4) << "SUM" << " ";
+        else std::cout << std::setw(4) << "SUM" << " ";
         for (int j = 0; j <= nClasses; j++)
             std::cout << std::setw(4) << confusionMatrix[i][j] << " ";
         std::cout << std::endl;

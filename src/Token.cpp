@@ -2,6 +2,7 @@
 // Created by igor on 15/05/2020.
 //
 
+#include <iostream>
 #include <cmath>
 #include "Token.h"
 
@@ -39,4 +40,10 @@ double Token::dist(Token &t) {
     for (int i = 0; i < size(); i++)
         d += (v[i] - t[i]) * (v[i] - t[i]);
     return std::sqrt(d);
+}
+
+std::ostream &operator<<(std::ostream &os, Token &t) {
+    for (int i = 0; i < t.size(); i++)
+        os << t[i] << " ";
+    return os;
 }

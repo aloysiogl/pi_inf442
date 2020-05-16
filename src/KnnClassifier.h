@@ -12,10 +12,12 @@ class KnnClassifier : public Classifier {
 public:
     explicit KnnClassifier(Dataset &trainDataset, int k);
 
+    ~KnnClassifier();
+
     Class classify(Token &token) override;
 
 private:
-    ANNkd_tree tree;
+    ANNkd_tree *tree;
     int k;
 };
 

@@ -12,13 +12,17 @@ KnnClassifier::KnnClassifier(Dataset &trainDataset, int k) : Classifier(trainDat
         for (int j = 0; j < d; j++)
             array[i][j] = dataset[i][j];
 
-    tree = ANNkd_tree(array, n, d);
+    tree = new ANNkd_tree(array, n, d);
+}
+
+KnnClassifier::~KnnClassifier() {
+    delete tree;
 }
 
 Class KnnClassifier::classify(Token &token) {
     auto *idxArray = new ANNidx[k];
     auto *distArray = new ANNdist[k];
-    tree.annkSearch(token.getData().data(), k, idxArray, distArray, 0.0);
+    tree->annkSearch(token.getData().data(), k, idxArray, distArray);
 
     std::vector<double> cnt(N_CLASSES, 0);
     std::vector<int> infCnt(N_CLASSES, 0);
@@ -34,7 +38,7 @@ Class KnnClassifier::classify(Token &token) {
 
     Class maxIdx = PER;
     for (int i = 0; i < N_CLASSES; i++)
-        if ((hasInf && cnt[i] > cnt[maxIdx]) || (!hasInf && infCnt[i] > infCnt[maxIdx]))
+        if ((!hasInf && cnt[i] > cnt[maxIdx]) || (hasInf && infCnt[i] > infCnt[maxIdx]))
             maxIdx = (Class) i;
 
     delete[]idxArray;

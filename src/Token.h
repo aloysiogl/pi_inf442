@@ -12,7 +12,7 @@ class Token {
 public:
     Token();
 
-    Token(std::vector<double> &v, Class c = UNDEFINED);
+    explicit Token(std::vector<double> &v, Class c = UNDEFINED);
 
     std::vector<double> &getData();
 
@@ -30,6 +30,8 @@ private:
     std::vector<double> v;
     Class c;
 };
+
+std::ostream &operator<<(std::ostream &os, Token &t);
 
 
 #endif //PI_INF442_TOKEN_H
