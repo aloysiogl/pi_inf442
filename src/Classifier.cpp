@@ -18,6 +18,6 @@ ClassificationType Classifier::getType() {
     return type;
 }
 
-double Classifier::classificationProbability(Class c, Token &token) {
+float Classifier::classificationProbability(Class c, Token &token) {
     throw "Probability for classification not implemented on this classifier";
 }

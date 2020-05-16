@@ -12,6 +12,6 @@ RandomClassifier::RandomClassifier(Dataset &trainDataset) :
         distribution = std::uniform_int_distribution<int>(0, 1);
 }
 
-Class RandomClassifier::classify(Token &token) {
+Class RandomClassifier::classify(Token &) {
     return (Class) distribution(state);
 }

@@ -19,11 +19,11 @@ public:
 
     Class classify(Token& token);
 
-    double classificationProbability(Class c, Token& token);
+    float classificationProbability(Class c, Token& token);
 
 private:
     void train();
-    double sig(double x);
+    float sig(float x);
     VectorXd grad(VectorXd& b, VectorXd& z, MatrixXd& X);
     MatrixXd lapla(VectorXd &beta, MatrixXd &X);
     VectorXd b;

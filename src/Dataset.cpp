@@ -2,7 +2,6 @@
 // Created by igor on 15/05/2020.
 //
 
-#include <complex>
 #include <string>
 #include <sstream>
 #include "Dataset.h"
@@ -52,9 +51,9 @@ void Dataset::loadNpy(const std::string &name) {
     tokens.reserve(n);
 
     for (int i = 0; i < n; i++) {
-        std::vector<double> v(dsize);
+        std::vector<float> v(dsize);
         for (int j = 0; j < dsize; j++)
-            v[j] = (double) data[dsize * i + j];
+            v[j] = data[dsize * i + j];
 
         std::string className;
         for (int j = 0; j < lsize; j++)
@@ -90,7 +89,7 @@ void Dataset::loadCsv(const std::string &dataName) {
     if (label.fail())
         throw std::invalid_argument("Label file " + dataName + " not found.");
 
-    std::vector<double> row;
+    std::vector<float> row;
     Class c;
     std::string lineData, lineLabel;
 
@@ -100,7 +99,7 @@ void Dataset::loadCsv(const std::string &dataName) {
 
         std::string word;
         while (getline(s, word, ',')) {
-            double val = std::strtod(word.c_str(), nullptr);
+            float val = std::strtof(word.c_str(), nullptr);
             row.push_back(val);
         }
 

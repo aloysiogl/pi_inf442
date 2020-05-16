@@ -19,7 +19,7 @@ public:
 
     Class classify(Token& token);
 
-    double classificationProbability(Class c, Token &token);
+    float classificationProbability(Class c, Token &token);
 
 private:
     void train();

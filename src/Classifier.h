@@ -16,7 +16,7 @@ public:
 
     virtual std::vector<Class> classify(Dataset &testDataset);
 
-    virtual double classificationProbability(Class c, Token &token);
+    virtual float classificationProbability(Class c, Token &token);
 
     ClassificationType getType();
 

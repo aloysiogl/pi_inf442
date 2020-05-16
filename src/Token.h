@@ -12,9 +12,9 @@ class Token {
 public:
     Token();
 
-    explicit Token(std::vector<double> &v, Class c = UNDEFINED);
+    explicit Token(std::vector<float> &v, Class c = UNDEFINED);
 
-    std::vector<double> &getData();
+    std::vector<float> &getData();
 
     void setClass(Class c);
 
@@ -22,12 +22,12 @@ public:
 
     int size() const;
 
-    double& operator[](int idx);
+    float& operator[](int idx);
 
-    double dist(Token &t);
+    float dist(Token &t);
 
 private:
-    std::vector<double> v;
+    std::vector<float> v;
     Class c;
 };
 

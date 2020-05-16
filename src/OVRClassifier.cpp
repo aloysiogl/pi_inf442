@@ -21,9 +21,9 @@ void OVRClassifier::train() {
 
 Class OVRClassifier::classify(Token &token) {
     int clf = 0;
-    double prob = classifiers[0]->classificationProbability((Class) 0, token);
+    float prob = classifiers[0]->classificationProbability((Class) 0, token);
     for (int i = 0; i < N_CLASSES; ++i){
-        double newProb = classifiers[i]->classificationProbability((Class) 0, token);
+        float newProb = classifiers[i]->classificationProbability((Class) 0, token);
         if (newProb > prob){
             clf = i;
             prob = newProb;

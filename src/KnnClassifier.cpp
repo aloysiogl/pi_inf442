@@ -22,9 +22,12 @@ KnnClassifier::~KnnClassifier() {
 Class KnnClassifier::classify(Token &token) {
     auto *idxArray = new ANNidx[k];
     auto *distArray = new ANNdist[k];
-    tree->annkSearch(token.getData().data(), k, idxArray, distArray);
+    auto q = annAllocPt(token.size());
+    for (int i = 0; i < token.size(); i++)
+        q[i] = token[i];
+    tree->annkSearch(q, k, idxArray, distArray);
 
-    std::vector<double> cnt(N_CLASSES, 0);
+    std::vector<float> cnt(N_CLASSES, 0);
     std::vector<int> infCnt(N_CLASSES, 0);
     bool hasInf = false;
     for (int i = 0; i < k; i++) {

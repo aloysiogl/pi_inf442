@@ -26,17 +26,17 @@ public:
 
     int falsePositive(Class c = PER);
 
-    double overall(Class c = PER);
+    float overall(Class c = PER);
 
-    double precision(Class c = PER);
+    float precision(Class c = PER);
 
-    double negativePredictedValue(Class c = PER);
+    float negativePredictedValue(Class c = PER);
 
-    double sensitivity(Class c = PER);
+    float sensitivity(Class c = PER);
 
-    double specificity(Class c = PER);
+    float specificity(Class c = PER);
 
-    double fScore(Class c = PER);
+    float fScore(Class c = PER);
 
 private:
     Classifier &classifier;

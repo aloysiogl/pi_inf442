@@ -39,7 +39,7 @@ void LogisticRegression::train() {
     }
 }
 
-double LogisticRegression::sig(double x) {
+float LogisticRegression::sig(float x) {
     return 1/(1+exp(-x));
 }
 
@@ -49,7 +49,7 @@ Class LogisticRegression::classify(Token &token) {
         vec[i] = token[i-1];
     vec[0] = 1.0;
 
-    double p1 = sig(vec*b);
+    float p1 = sig(vec*b);
 
     if (p1 >= 0.5)
         return (Class) 1;
@@ -72,19 +72,19 @@ MatrixXd LogisticRegression::lapla(VectorXd &beta, MatrixXd &X) {
     sum.setZero();
 
     for (int i = 0; i < dataset.size(); ++i){
-        double prob = sig(X.row(i)*beta);
+        float prob = sig(X.row(i)*beta);
         sum += prob*(1-prob)*((X.row(i).transpose())*X.row(i));
     }
     return -sum;
 }
 
-double LogisticRegression::classificationProbability(Class c, Token& token) {
+float LogisticRegression::classificationProbability(Class c, Token& token) {
     RowVectorXd vec(dataset.dimension() + 1);
     for (int i = 1; i < dataset.dimension()+1; ++i)
         vec[i] = token[i-1];
     vec[0] = 1.0;
 
-    double p1 = sig(vec*b);
+    float p1 = sig(vec*b);
 
     if ((int) c == 0)
         return 1-p1;
