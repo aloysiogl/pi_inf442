@@ -7,7 +7,7 @@
 #include <sstream>
 #include "Dataset.h"
 
-Dataset::Dataset(const std::string &dataFile, const std::string &labelFile) {
+Dataset::Dataset(const std::string &dataFile, const std::string &labelFile, ClassificationType type) : type(type) {
     std::ifstream data(dataFile);
     if (data.fail())
         throw std::invalid_argument("Dataset file " + dataFile + " not found.");
@@ -43,6 +43,9 @@ Dataset::Dataset(const std::string &dataFile, const std::string &labelFile) {
             throw std::invalid_argument("Label type " + lineLabel + " not recognized in line " +
                                         std::to_string(tokens.size()));
 
+        if (type == BINARY && (c == MISC || c == LOC || c == ORG))
+            c = O;
+
         if (!tokens.empty() && tokens[0].getSize() != row.size())
             throw std::invalid_argument("Row " + std::to_string(tokens.size()) + " in dataset has inconsistent size");
         tokens.emplace_back(Token(row, c));
@@ -68,4 +71,8 @@ int Dataset::getDimension() const {
     if (!tokens.empty())
         return tokens[0].getSize();
     else return 0;
+}
+
+ClassificationType Dataset::getType() const {
+    return type;
 }

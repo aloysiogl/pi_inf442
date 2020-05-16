@@ -6,52 +6,105 @@
 #include <iostream>
 #include "Analyzer.h"
 
-Analyzer::Analyzer(Classificator &classificator) : classificator(classificator) {
-    confusionMatrix.assign(N_CLASSES + 1, std::vector<int>(N_CLASSES + 1, 0));
+Analyzer::Analyzer(Classifier &classificator) : classificator(classificator) {
+    if (classificator.getType() == BINARY)
+        nClasses = 2;
+    else nClasses = N_CLASSES;
+    confusionMatrix.assign(nClasses + 1, std::vector<int>(nClasses + 1, 0));
 }
 
 void Analyzer::analyze(Dataset &testDataset) {
     auto classes = classificator.classify(testDataset);
 
-    for (int i = 0; i < testDataset.getSize(); i++) {
-        int ci = classes[i];
-        int cj = testDataset.getToken(i).getClass();
-        confusionMatrix[ci][cj]++;
+    if (classificator.getType() == BINARY) {
+        for (int i = 0; i < testDataset.getSize(); i++) {
+            Class ci = classes[i];
+            Class cj = testDataset.getToken(i).getClass();
+            int mi = ci != PER, mj = cj != PER;
+            confusionMatrix[mi][mj]++;
+        }
+    } else {
+        for (int i = 0; i < testDataset.getSize(); i++) {
+            Class ci = classes[i];
+            Class cj = testDataset.getToken(i).getClass();
+            confusionMatrix[ci][cj]++;
+        }
     }
 
     // Computing sums
-    for (int i = 0; i < N_CLASSES; i++) {
+    for (int i = 0; i < nClasses; i++) {
         int s = 0;
-        for (int j = 0; j < N_CLASSES; j++)
+        for (int j = 0; j < nClasses; j++)
             s += confusionMatrix[i][j];
-        confusionMatrix[i][N_CLASSES] = s;
+        confusionMatrix[i][nClasses] = s;
     }
-    for (int j = 0; j < N_CLASSES; j++) {
+    for (int j = 0; j < nClasses; j++) {
         int s = 0;
-        for (int i = 0; i < N_CLASSES; i++)
+        for (int i = 0; i < nClasses; i++)
             s += confusionMatrix[i][j];
-        confusionMatrix[N_CLASSES][j] = s;
+        confusionMatrix[nClasses][j] = s;
     }
-    confusionMatrix[N_CLASSES][N_CLASSES] = testDataset.getSize();
+    confusionMatrix[nClasses][nClasses] = testDataset.getSize();
 }
 
 void Analyzer::printAnalysis() {
     std::cout << "CONFUSION MATRIX: (Predicted \u2192 x Classified \u2193)" << std::endl;
-    for (int i = 0; i <= N_CLASSES; i++) {
-        for (int j = 0; j <= N_CLASSES; j++)
+    std::cout << std::setw(5) << "";
+    for (int j = 0; j < nClasses; j++)
+        std::cout << std::setw(4) << to_string((Class) j) << " ";
+    std::cout << std::setw(4) << "SUM" << std::endl;
+    for (int i = 0; i <= nClasses; i++) {
+        if (i != nClasses)
+            std::cout << std::setw(4) << to_string((Class) i) << " ";
+        else     std::cout << std::setw(4) << "SUM" << " ";
+        for (int j = 0; j <= nClasses; j++)
             std::cout << std::setw(4) << confusionMatrix[i][j] << " ";
         std::cout << std::endl;
     }
-    std::cout << "OVERALL ACCURACY: " << overallAccuracy() << std::endl;
+    std::cout << "OVERALL ACCURACY: " << overall() << std::endl;
+    std::cout << "F SCORE: " << fScore() << std::endl;
 }
 
 std::vector<std::vector<int>> Analyzer::getConfusionMatrix() {
     return confusionMatrix;
 }
 
-double Analyzer::overallAccuracy() {
-    int s = 0;
-    for (int i = 0; i < N_CLASSES; i++)
-        s += confusionMatrix[i][i];
-    return (double) s / (double) confusionMatrix[N_CLASSES][N_CLASSES];
+int Analyzer::truePositive(Class c) {
+    return confusionMatrix[c][c];
+}
+
+int Analyzer::trueNegative(Class c) {
+    return confusionMatrix[nClasses][nClasses] - truePositive(c) - falseNegative(c) - falsePositive(c);
+}
+
+int Analyzer::falseNegative(Class c) {
+    return confusionMatrix[c][nClasses] - confusionMatrix[c][c];
+}
+
+int Analyzer::falsePositive(Class c) {
+    return confusionMatrix[nClasses][c] - confusionMatrix[c][c];
+}
+
+double Analyzer::overall(Class c) {
+    return (double) (truePositive(c) + trueNegative(c)) / (double) confusionMatrix[nClasses][nClasses];
+}
+
+double Analyzer::precision(Class c) {
+    return (double) truePositive(c) / (double) (truePositive(c) + falsePositive(c));
+}
+
+double Analyzer::negativePredictedValue(Class c) {
+    return (double) trueNegative(c) / (double) (trueNegative(c) + falseNegative(c));
+}
+
+double Analyzer::sensitivity(Class c) {
+    return (double) truePositive(c) / (double) (truePositive(c) + falseNegative(c));
+}
+
+double Analyzer::specificity(Class c) {
+    return (double) trueNegative(c) / (double) (trueNegative(c) + falsePositive(c));
+}
+
+double Analyzer::fScore(Class c) {
+    return 2.0 * precision(c) * sensitivity(c) / (precision(c) + sensitivity(c));
 }

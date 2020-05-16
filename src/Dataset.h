@@ -9,9 +9,13 @@
 #include <string>
 #include "Token.h"
 
+enum ClassificationType {
+    BINARY, NER
+};
+
 class Dataset {
 public:
-    explicit Dataset(const std::string &dataFile, const std::string &labelFile);
+    explicit Dataset(const std::string &dataFile, const std::string &labelFile, ClassificationType type = NER);
 
     std::vector<Token> &getTokens();
 
@@ -21,8 +25,11 @@ public:
 
     int getDimension() const;
 
+    ClassificationType getType() const;
+
 private:
     std::vector<Token> tokens;
+    ClassificationType type;
 };
 
 

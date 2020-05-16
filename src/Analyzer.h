@@ -5,11 +5,11 @@
 #ifndef PI_INF442_ANALYZER_H
 #define PI_INF442_ANALYZER_H
 
-#include "Classificator.h"
+#include "Classifier.h"
 
 class Analyzer {
 public:
-    explicit Analyzer(Classificator &classificator);
+    explicit Analyzer(Classifier &classificator);
 
     void analyze(Dataset &testDataset);
 
@@ -17,13 +17,31 @@ public:
 
     std::vector<std::vector<int>> getConfusionMatrix();
 
-    double overallAccuracy();
 
-    // TODO: Calculate other metrics
+    int truePositive(Class c = PER);
+
+    int trueNegative(Class c = PER);
+
+    int falseNegative(Class c = PER);
+
+    int falsePositive(Class c = PER);
+
+    double overall(Class c = PER);
+
+    double precision(Class c = PER);
+
+    double negativePredictedValue(Class c = PER);
+
+    double sensitivity(Class c = PER);
+
+    double specificity(Class c = PER);
+
+    double fScore(Class c = PER);
 
 private:
-    Classificator &classificator;
+    Classifier &classificator;
     std::vector<std::vector<int>> confusionMatrix;
+    int nClasses;
 };
 
 
