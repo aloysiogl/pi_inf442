@@ -40,7 +40,7 @@ void Dataset::loadNpy(const std::string &name) {
 
     std::string path("../data/representation." + name + ".npy");
     cnpy::NpyArray dataArr = cnpy::npy_load(path);
-    auto *data = dataArr.data<float>();
+    auto *data = dataArr.data<double>();
 
     path = "../data/true_labels." + name + ".npy";
     cnpy::NpyArray labelArr = cnpy::npy_load(path);
@@ -54,7 +54,7 @@ void Dataset::loadNpy(const std::string &name) {
     for (int i = 0; i < n; i++) {
         std::vector<double> v(dsize);
         for (int j = 0; j < dsize; j++)
-            v[j] = (double) data[dsize * i + j];
+            v[j] = data[dsize * i + j];
 
         std::string className;
         for (int j = 0; j < lsize; j++)
