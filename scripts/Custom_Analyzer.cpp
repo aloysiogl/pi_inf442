@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
 
     Classifier *classifier;
     time(&t1);
-    auto classifierName = std::string(argv[1];
+    auto classifierName = std::string(argv[1]);
     if (classifierName == "knnTree")
         classifier = new KnnClassifier(train, 5);
     else if (classifierName == "knnHeap")
