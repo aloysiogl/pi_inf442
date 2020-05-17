@@ -36,6 +36,8 @@ public:
 
     float specificity(Class c = PER);
 
+    float falseAlarmRate(Class c = PER);
+
     float fScore(Class c = PER);
 
 private:

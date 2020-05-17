@@ -105,6 +105,10 @@ float Analyzer::specificity(Class c) {
     return (float) trueNegative(c) / (float) (trueNegative(c) + falsePositive(c));
 }
 
+float Analyzer::falseAlarmRate(Class c) {
+    return (float) falsePositive(c) / (float) (falsePositive(c) + trueNegative(c));
+}
+
 float Analyzer::fScore(Class c) {
     return 2.0 * precision(c) * sensitivity(c) / (precision(c) + sensitivity(c));
 }
