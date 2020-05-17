@@ -62,6 +62,7 @@ void Analyzer::printAnalysis() {
         std::cout << std::endl;
     }
     std::cout << "OVERALL ACCURACY: " << overall() << std::endl;
+    std::cout << "TRUE POSITIVE RATE: " << sensitivity() << std::endl;
     std::cout << "F SCORE: " << fScore() << std::endl;
 }
 
