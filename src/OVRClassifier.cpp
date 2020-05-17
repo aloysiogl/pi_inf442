@@ -4,19 +4,28 @@
 
 #include "OVRClassifier.h"
 #include "LinearRegression.h"
+#include "LogisticRegression.h"
 
 OVRClassifier::OVRClassifier(Dataset &dataset, BaseClassifier classifier) : Classifier(dataset) {
     this->baseClassifier = classifier;
-    for (int i = 0; i < N_CLASSES; ++i)
-        datasets.push_back(dataset.getBinary((Class) i));
-    train();
+
+    // Creating binary vector of classes, for each of the classes
+    for (int c = 0; c < N_CLASSES; c++) {
+        std::vector<Class> classes(dataset.size());
+        for (int i = 0; i < dataset.size(); ++i) {
+            if (dataset[i].getClass() == c)
+                classes[i] = (Class) 0;
+            else classes[i] = (Class) 1;
+        }
+        if (baseClassifier == LINEAR_REGRESSION)
+            classifiers.push_back(new LinearRegression(dataset, classes));
+        else classifiers.push_back(new LogisticRegression(dataset, classes));
+    }
 }
 
-void OVRClassifier::train() {
-    if (baseClassifier == LINEAR_REGRESSION){
-        for (int i = 0; i < N_CLASSES; ++i)
-            classifiers.push_back(new LinearRegression(datasets[i]));
-    }
+OVRClassifier::~OVRClassifier() {
+    for (int i = 0; i < classifiers.size(); i++)
+        delete classifiers[i];
 }
 
 Class OVRClassifier::classify(Token &token) {

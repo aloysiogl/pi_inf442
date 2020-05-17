@@ -11,12 +11,10 @@ int main(){
     // Reading files
     time_t t1, t2;
     time(&t1);
-    Dataset train("train", NER);
-    Dataset test("testa", NER);
+    Dataset train("train-sample", NER);
+    Dataset test("testa-sample", NER);
     time(&t2);
     std::cout << "Duration of file read: " << t2-t1 << "s\n";
-
-
 
     time(&t1);
     OVRClassifier classifier(train, LINEAR_REGRESSION);

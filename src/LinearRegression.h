@@ -9,13 +9,15 @@
 #include "Classifier.h"
 #include <Eigen/Dense>
 
-using Eigen::MatrixXd;
-using Eigen::VectorXd;
-using Eigen::RowVectorXd;
+using Eigen::MatrixXf;
+using Eigen::VectorXf;
+using Eigen::RowVectorXf;
 
 class LinearRegression : public Classifier {
 public:
     LinearRegression(Dataset& dataset);
+
+    LinearRegression(Dataset& dataset, std::vector<Class> &classes);
 
     Class classify(Token& token);
 
@@ -24,7 +26,8 @@ public:
 private:
     void train();
 
-    MatrixXd B;
+    MatrixXf B;
+    std::vector<Class> classes;
 };
 
 

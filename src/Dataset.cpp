@@ -15,6 +15,13 @@ std::vector<Token> &Dataset::getTokens() {
     return tokens;
 }
 
+std::vector<Class> Dataset::getClasses() {
+    std::vector<Class> classes(size());
+    for (int i = 0; i < size(); i++)
+        classes[i] = tokens[i].getClass();
+    return classes;
+}
+
 int Dataset::size() const {
     return tokens.size();
 }
@@ -127,18 +134,6 @@ void Dataset::loadCsv(const std::string &dataName) {
 
     data.close();
     label.close();
-}
-
-Dataset Dataset::getBinary(Class c) {
-    Dataset newDataset = *this;
-    newDataset.setType(BINARY);
-    for (int i = 0; i < size(); ++i){
-        if ((Class)(*this)[i].getClass() == c)
-            newDataset[i].setClass((Class) 0);
-        else newDataset[i].setClass((Class) 1);
-    }
-
-    return newDataset;
 }
 
 void Dataset::setType(ClassificationType type) {

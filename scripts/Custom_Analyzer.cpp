@@ -13,9 +13,9 @@
 int main(int argc, char **argv) {
     if (argc != 5) {
         std::cout << "Correct usage: ./Custom_Analyzer <classifier> <type> <trainDataset> <testDataset>" << std::endl;
-        std::cout << "<type>: binary | ner" << std::endl;
         std::cout << "<classifier>: knn | linearRegression | logisticRegression | ovrLinear | ovrLogistic | random"
                   << std::endl;
+        std::cout << "<type>: binary | ner" << std::endl;
         exit(1);
     }
 
@@ -48,8 +48,9 @@ int main(int argc, char **argv) {
         classifier = new OVRClassifier(train, LOGISTIC_REGRESSION);
     else if (std::string(argv[1]) == "random")
         classifier = new RandomClassifier(train);
+    else throw std::invalid_argument("Invalid classifier type");
     time(&t2);
-    std::cout << "Time for the building step: " << t2 - t1 << "s\n";
+    std::cout << "Time for the train step: " << t2 - t1 << "s\n";
 
     time(&t1);
     Analyzer analyzer(*classifier);

@@ -9,13 +9,15 @@
 #include "Classifier.h"
 #include <Eigen/Dense>
 
-using Eigen::VectorXd;
-using Eigen::RowVectorXd;
-using Eigen::MatrixXd;
+using Eigen::VectorXf;
+using Eigen::RowVectorXf;
+using Eigen::MatrixXf;
 
 class LogisticRegression : public Classifier {
 public:
     LogisticRegression(Dataset& dataset, int MAX_ITER = 10);
+
+    LogisticRegression(Dataset& dataset, std::vector<Class> &classes, int MAX_ITER = 10);
 
     Class classify(Token& token);
 
@@ -24,9 +26,11 @@ public:
 private:
     void train();
     float sig(float x);
-    VectorXd grad(VectorXd& b, VectorXd& z, MatrixXd& X);
-    MatrixXd lapla(VectorXd &beta, MatrixXd &X);
-    VectorXd b;
+    VectorXf grad(VectorXf& b, VectorXf& z, MatrixXf& X);
+    MatrixXf lapla(VectorXf &beta, MatrixXf &X);
+
+    std::vector<Class> classes;
+    VectorXf b;
     int MAX_ITER;
 };
 
