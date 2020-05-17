@@ -1,25 +1,70 @@
 
 LINEAR train testa BINARY
 
-
+Duration of file read: 2s
+Time for the train step: 105s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER 7221 2187 9408 
+   O  471 144088 144559 
+ SUM 7692 146275 153967 
+OVERALL ACCURACY: 0.982737
+TRUE POSITIVE RATE: 0.767538
+F SCORE: 0.844561
+Time for the analysis step: 1s
 
 ========================
 
 LINEAR train testb BINARY
 
-
+Duration of file read: 3s
+Time for the train step: 105s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER 2102  667 2769 
+   O  104 43544 43648 
+ SUM 2206 44211 46417 
+OVERALL ACCURACY: 0.98339
+TRUE POSITIVE RATE: 0.759119
+F SCORE: 0.845025
+Time for the analysis step: 0s
 
 ========================
 
 LINEAR train testa NER
 
-
+Duration of file read: 6s
+Time for the train step: 104s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O MISC  LOC  ORG  SUM
+ PER 7221 2136    3    6   42 9408 
+   O  132 127945   15    6   99 128197 
+MISC   69 1539 1377  465  354 3804 
+ LOC  126 1464   33 4149  510 6282 
+ ORG  144 1527   54  264 4287 6276 
+ SUM 7692 134611 1482 4890 5292 153967 
+OVERALL ACCURACY: 0.982737
+TRUE POSITIVE RATE: 0.767538
+F SCORE: 0.844561
+Time for the analysis step: 1s
 
 ========================
 
 LINEAR train testb NER
 
-
+Time for the train step: 104s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O MISC  LOC  ORG  SUM
+ PER 2102  634    0    6   27 2769 
+   O   37 38159   10   14   92 38312 
+MISC   17  365  344   90  102  918 
+ LOC   21  423    7 1286  185 1922 
+ ORG   29  621   19  131 1696 2496 
+ SUM 2206 40202  380 1527 2102 46417 
+OVERALL ACCURACY: 0.98339
+TRUE POSITIVE RATE: 0.759119
+F SCORE: 0.845025
+Time for the analysis step: 0s
 
 ======================
 
@@ -164,31 +209,87 @@ Time for the analysis step: 1s
 
 OVRLOGISTIC BINARY TRAIN TESTA
 
-
+Duration of file read: 2s
+Time for the train step: 10825s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER 8292 1116 9408 
+   O 1425 143134 144559 
+ SUM 9717 144250 153967 
+OVERALL ACCURACY: 0.983496
+TRUE POSITIVE RATE: 0.881378
+F SCORE: 0.867137
+Time for the analysis step: 4s
 
 =======================
 
 OVRLOGISTIC BINARY TRAIN TESTB
 
-
+Duration of file read: 2s
+Time for the train step: 15662s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER 2492  277 2769 
+   O  562 43086 43648 
+ SUM 3054 43363 46417 
+OVERALL ACCURACY: 0.981925
+TRUE POSITIVE RATE: 0.899964
+F SCORE: 0.855916
+Time for the analysis step: 1s
 
 =======================
 
 OVRLOGISTIC NER TRAIN TESTA
 
-
+Duration of file read: 4s
+Time for the train step: 15689s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O MISC  LOC  ORG  SUM
+ PER 8292 1032   36   48    0 9408 
+   O  369 127585  156   87    0 128197 
+MISC   72  567 2868  297    0 3804 
+ LOC   87  267  192 5736    0 6282 
+ ORG  897 2241 1518 1620    0 6276 
+ SUM 9717 131692 4770 7788    0 153967 
+OVERALL ACCURACY: 0.983496
+TRUE POSITIVE RATE: 0.881378
+F SCORE: 0.867137
+Time for the analysis step: 4s
 
 =======================
 
 OVRLOGISTIC NER TRAIN TESTB
 
-
+Duration of file read: 3s
+Time for the train step: 12691s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O MISC  LOC  ORG  SUM
+ PER 2492  242   13   22    0 2769 
+   O  134 37955  156   67    0 38312 
+MISC   22  153  676   67    0  918 
+ LOC   26   93   67 1736    0 1922 
+ ORG  380  818  546  752    0 2496 
+ SUM 3054 39261 1458 2644    0 46417 
+OVERALL ACCURACY: 0.981925
+TRUE POSITIVE RATE: 0.899964
+F SCORE: 0.855916
+Time for the analysis step: 1s
 
 =======================
 
 KNN BINARY TRAIN TESTA
 
-
+Duration of file read: 2s
+Time for the train step: 5s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER 7980 1428 9408 
+   O  897 143662 144559 
+ SUM 8877 145090 153967 
+OVERALL ACCURACY: 0.984899
+TRUE POSITIVE RATE: 0.848214
+F SCORE: 0.872847
+Time for the analysis step: 24466s
 
 =======================
 
@@ -216,6 +317,19 @@ KNN NER TRAIN TESTA
 
 KNN NER TRAIN TESTB
 
-
+Duration of file read: 6s
+Time for the train step: 4s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O MISC  LOC  ORG  SUM
+ PER 2278  273   36   68  114 2769 
+   O  196 37766  137   60  153 38312 
+MISC   19  133  613   87   66  918 
+ LOC   39   72   87 1575  149 1922 
+ ORG   65  196   80  201 1954 2496 
+ SUM 2597 38440  953 1991 2436 46417 
+OVERALL ACCURACY: 0.982549
+TRUE POSITIVE RATE: 0.82268
+F SCORE: 0.84905
+Time for the analysis step: 7555s
 
 =======================
