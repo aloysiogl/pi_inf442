@@ -6,6 +6,8 @@
 
 Classifier::Classifier(Dataset &trainDataset) : dataset(trainDataset), type(dataset.getType()) {}
 
+Classifier::~Classifier() {}
+
 std::vector<Class> Classifier::classify(Dataset &testDataset) {
     std::vector<Class> classes;
     classes.reserve(testDataset.getTokens().size());
