@@ -13,7 +13,7 @@
 int main(int argc, char **argv) {
     if (argc != 5) {
         std::cout << "Correct usage: ./Custom_Analyzer <classifier> <type> <trainDataset> <testDataset>" << std::endl;
-        std::cout << "<classifier>: knn | linearRegression | logisticRegression | ovrLinear | ovrLogistic | random"
+        std::cout << "<classifier>: knnTree | knnHeap | linearRegression | logisticRegression | ovrLinear | ovrLogistic | random"
                   << std::endl;
         std::cout << "<type>: binary | ner" << std::endl;
         exit(1);
@@ -36,17 +36,20 @@ int main(int argc, char **argv) {
 
     Classifier *classifier;
     time(&t1);
-    if (std::string(argv[1]) == "knn")
+    auto classifierName = std::string(argv[1];
+    if (classifierName == "knnTree")
         classifier = new KnnClassifier(train, 5);
-    else if (std::string(argv[1]) == "linearRegression")
+    else if (classifierName == "knnHeap")
+        classifier = new KnnClassifier(train, 5, false);
+    else if (classifierName == "linearRegression")
         classifier = new LinearRegression(train);
-    else if (std::string(argv[1]) == "logisticRegression")
+    else if (classifierName == "logisticRegression")
         classifier = new LogisticRegression(train);
-    else if (std::string(argv[1]) == "ovrLinear")
+    else if (classifierName == "ovrLinear")
         classifier = new OVRClassifier(train, LINEAR_REGRESSION);
-    else if (std::string(argv[1]) == "ovrLogistic")
+    else if (classifierName == "ovrLogistic")
         classifier = new OVRClassifier(train, LOGISTIC_REGRESSION);
-    else if (std::string(argv[1]) == "random")
+    else if (classifierName == "random")
         classifier = new RandomClassifier(train);
     else throw std::invalid_argument("Invalid classifier type");
     time(&t2);
