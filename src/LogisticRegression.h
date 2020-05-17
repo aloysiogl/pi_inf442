@@ -9,9 +9,9 @@
 #include "Classifier.h"
 #include <Eigen/Dense>
 
-using Eigen::VectorXf;
-using Eigen::RowVectorXf;
-using Eigen::MatrixXf;
+using Eigen::VectorXd;
+using Eigen::RowVectorXd;
+using Eigen::MatrixXd;
 
 class LogisticRegression : public Classifier {
 public:
@@ -26,11 +26,11 @@ public:
 private:
     void train();
     float sig(float x);
-    VectorXf grad(VectorXf& b, VectorXf& z, MatrixXf& X);
-    MatrixXf lapla(VectorXf &beta, MatrixXf &X);
+    VectorXd grad(VectorXd& b, VectorXd& z, MatrixXd& X);
+    MatrixXd lapla(VectorXd &beta, MatrixXd &X);
 
     std::vector<Class> classes;
-    VectorXf b;
+    VectorXd b;
     int MAX_ITER;
 };
 

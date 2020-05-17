@@ -22,7 +22,7 @@ void LogisticRegression::train() {
     b.resize(dataset.dimension() + 1);
     b.setZero();
 
-    MatrixXf X(dataset.size(), dataset.dimension() + 1);
+    MatrixXd X(dataset.size(), dataset.dimension() + 1);
 
     // Reading data and transferring to observation matrix
     for (int i = 0; i < dataset.size(); ++i) {
@@ -31,7 +31,7 @@ void LogisticRegression::train() {
         X(i, 0) = 1.0;
     }
 
-    VectorXf z(dataset.size());
+    VectorXd z(dataset.size());
 
     for (int i = 0; i < z.size(); ++i) {
         if (classes[i] == 1)
@@ -41,7 +41,7 @@ void LogisticRegression::train() {
 
 
     for (int i = 0; i < MAX_ITER; ++i) {
-        VectorXf beta = b;
+        VectorXd beta = b;
         b = beta - lapla(beta, X).inverse() * grad(beta, z, X);
     }
 }
@@ -51,7 +51,7 @@ float LogisticRegression::sig(float x) {
 }
 
 Class LogisticRegression::classify(Token &token) {
-    RowVectorXf vec(dataset.dimension() + 1);
+    RowVectorXd vec(dataset.dimension() + 1);
     for (int i = 1; i < dataset.dimension() + 1; ++i)
         vec[i] = token[i - 1];
     vec[0] = 1.0;
@@ -63,8 +63,8 @@ Class LogisticRegression::classify(Token &token) {
     return (Class) 0;
 }
 
-VectorXf LogisticRegression::grad(VectorXf &beta, VectorXf &z, MatrixXf &X) {
-    VectorXf sum(dataset.dimension() + 1);
+VectorXd LogisticRegression::grad(VectorXd &beta, VectorXd &z, MatrixXd &X) {
+    VectorXd sum(dataset.dimension() + 1);
     sum.setZero();
 
     for (int i = 0; i < dataset.size(); ++i) {
@@ -74,8 +74,8 @@ VectorXf LogisticRegression::grad(VectorXf &beta, VectorXf &z, MatrixXf &X) {
     return sum;
 }
 
-MatrixXf LogisticRegression::lapla(VectorXf &beta, MatrixXf &X) {
-    MatrixXf sum(dataset.dimension() + 1, dataset.dimension() + 1);
+MatrixXd LogisticRegression::lapla(VectorXd &beta, MatrixXd &X) {
+    MatrixXd sum(dataset.dimension() + 1, dataset.dimension() + 1);
     sum.setZero();
 
     for (int i = 0; i < dataset.size(); ++i) {
@@ -86,7 +86,7 @@ MatrixXf LogisticRegression::lapla(VectorXf &beta, MatrixXf &X) {
 }
 
 float LogisticRegression::classificationProbability(Class c, Token &token) {
-    RowVectorXf vec(dataset.dimension() + 1);
+    RowVectorXd vec(dataset.dimension() + 1);
     for (int i = 1; i < dataset.dimension() + 1; ++i)
         vec[i] = token[i - 1];
     vec[0] = 1.0;

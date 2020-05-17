@@ -9,9 +9,9 @@
 #include "Classifier.h"
 #include <Eigen/Dense>
 
-using Eigen::MatrixXf;
-using Eigen::VectorXf;
-using Eigen::RowVectorXf;
+using Eigen::MatrixXd;
+using Eigen::VectorXd;
+using Eigen::RowVectorXd;
 
 class LinearRegression : public Classifier {
 public:
@@ -26,7 +26,7 @@ public:
 private:
     void train();
 
-    MatrixXf B;
+    MatrixXd B;
     std::vector<Class> classes;
 };
 
