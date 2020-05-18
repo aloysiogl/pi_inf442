@@ -2,11 +2,11 @@ from torch import nn
 import torch.nn.functional as F
 
 
-class Module(nn.Module):
+class ModuleRegex(nn.Module):
     def __init__(self, input_size):
         super().__init__()
-        self.inp = nn.Linear(input_size, 10)
-        self.hidden = nn.Linear(10, 5)
+        self.inp = nn.Linear(input_size, 15)
+        self.hidden = nn.Linear(15, 5)
         self.out = nn.Linear(5, 2)
 
     def forward(self, x):
