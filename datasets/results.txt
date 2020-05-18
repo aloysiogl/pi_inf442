@@ -311,7 +311,20 @@ Time for the analysis step: 7619s
 
 KNN NER TRAIN TESTA
 
-
+Duration of file read: 2s
+Time for the train step: 5s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O MISC  LOC  ORG  SUM
+ PER 7980 1020   87  144  177 9408
+   O  453 127309  129   93  213 128197
+MISC   90  450 2760  309  195 3804
+ LOC  108  207  291 5259  417 6282
+ ORG  246  468  141  279 5142 6276
+ SUM 8877 129454 3408 6084 6144 153967
+OVERALL ACCURACY: 0.984899
+TRUE POSITIVE RATE: 0.848214
+F SCORE: 0.872847
+Time for the analysis step: 21059s
 
 =======================
 
@@ -333,3 +346,146 @@ F SCORE: 0.84905
 Time for the analysis step: 7555s
 
 =======================
+
+OVRLOGISTIC BINARY DUTCH
+
+Duration of file read: 1s
+Time for the train step: 10434s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER  881  245 1126 
+   O  188 36292 36480 
+ SUM 1069 36537 37606 
+OVERALL ACCURACY: 0.988486
+TRUE POSITIVE RATE: 0.782416
+F SCORE: 0.802733
+Time for the analysis step: 1s
+
+========================
+
+OVRLOGISTIC BINARY PORTUGUESE
+
+Duration of file read: 1s
+Time for the train step: 14541s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER  472  130  602 
+   O  111 38830 38941 
+ SUM  583 38960 39543 
+OVERALL ACCURACY: 0.993905
+TRUE POSITIVE RATE: 0.784053
+F SCORE: 0.796624
+Time for the analysis step: 1s
+
+=========================
+
+OVRLOGISTIC BINARY SPANISH
+
+Duration of file read: 2s
+Time for the train step: 18497s
+CONFUSION MATRIX: (Predicted → x Actual ↓)
+      PER    O  SUM
+ PER 1678  384 2062 
+   O  256 49965 50221 
+ SUM 1934 50349 52283 
+OVERALL ACCURACY: 0.987759
+TRUE POSITIVE RATE: 0.813773
+F SCORE: 0.83984
+Time for the analysis step: 1s
+
+=========================
+
+BERT_NN BINARY ENGLISH A
+
+Time for the train step: 0:02:23.148128
+Time for the analysis step: 0:00:02.001920
+CONFUSION MATRIX:
+[[  8040   1368]
+ [   327 144232]]
+OVERALL ACCURACY: 0.9889911474536751
+TRUE POSITIVE RATE: 0.9609178917174614
+F-SCORE: 0.9609178917174614
+
+=========================
+
+BERT_NN NER ENGLISH A
+
+Time for the train step: 0:04:34.195933
+Time for the analysis step: 0:00:01.983858
+CONFUSION MATRIX:
+[[  8214   1074     27     39     54]
+ [   198 127672    105     72    150]
+ [    48    447   2841    276    192]
+ [    60    159    120   5766    177]
+ [    75    366    207    231   5397]]
+OVERALL ACCURACY: 0.9897705352445654
+TRUE POSITIVE RATE: 0.9556719022687609
+F-SCORE: 0.9556719022687609
+
+=========================
+
+BERT_NN BINARY ENGLISH B
+
+Time for the train step: 0:01:44.556721
+Time for the analysis step: 0:00:00.644370
+CONFUSION MATRIX:
+[[ 2335   434]
+ [  117 43531]]
+OVERALL ACCURACY: 0.9881293491608678
+TRUE POSITIVE RATE: 0.952283849918434
+F-SCORE: 0.952283849918434
+
+=========================
+
+BERT_NN NER ENGLISH B
+
+Time for the train step: 0:03:12.823136
+Time for the analysis step: 0:00:00.586907
+CONFUSION MATRIX:
+[[ 2412   279     8    19    51]
+ [   80 37949   121    55   107]
+ [    7   125   652    59    75]
+ [   15    62    34  1706   105]
+ [   25   149    72   170  2080]]
+OVERALL ACCURACY: 0.9895727858327767
+TRUE POSITIVE RATE: 0.949980307207562
+F-SCORE: 0.949980307207562
+
+=========================
+
+BERT_NN BINARY SPANISH
+
+Time for the train step: 0:02:11.196697
+Time for the analysis step: 0:00:00.710477
+CONFUSION MATRIX:
+[[ 1663   399]
+ [  238 49983]]
+OVERALL ACCURACY: 0.9878163074039362
+TRUE POSITIVE RATE: 0.8748027354024198
+F-SCORE: 0.8748027354024198
+
+=========================
+
+BERT_NN BINARY DUTCH
+
+Time for the train step: 0:01:41.109569
+Time for the analysis step: 0:00:00.475334
+CONFUSION MATRIX:
+[[  801   325]
+ [  105 36375]]
+OVERALL ACCURACY: 0.9885656544168484
+TRUE POSITIVE RATE: 0.8841059602649006
+F-SCORE: 0.8841059602649006
+
+=========================
+
+BERT_NN BINARY PORTUGUESE
+
+Time for the train step: 0:01:40.466547
+Time for the analysis step: 0:00:00.486145
+CONFUSION MATRIX:
+[[  428   174]
+ [   35 38906]]
+OVERALL ACCURACY: 0.9947146144703235
+TRUE POSITIVE RATE: 0.9244060475161987
+F-SCORE: 0.9244060475161987
