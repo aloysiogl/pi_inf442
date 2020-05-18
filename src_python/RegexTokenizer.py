@@ -1,4 +1,5 @@
 from src_python.Dataset import Dataset
+from tqdm import tqdm
 import re, torch
 
 
@@ -22,8 +23,8 @@ class RegexTokenizer:
         return self.tokens
 
     def set_tokens(self):
-        for i in range(len(self.rules)):
-            self.check_rule(rule=self.rules[i], rule_index=i)
+        for rule in tqdm(self.rules, desc="Evaluating regex"):
+            self.check_rule(rule=rule, rule_index=self.rules.index(rule))
 
     def check_rule(self, rule, rule_index):
         p = re.compile(rule)
@@ -50,6 +51,9 @@ if __name__ == "__main__":
     train = Dataset("../datasets/eng.train")
 
     rules = ['\\b([A-Z])([a-z])+\\b.([A-Z])([a-z])+\\b',
-             '\\b([A-Z])([a-z])+\\b']
+             '\\b([A-Z])([a-z])+\\b',
+             '\\b([A-Z])+([a-z])+\\b',
+             '\\b[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*)\\b']
     tokenizer = RegexTokenizer(dataset=train, rules=rules)
     tokens = tokenizer.get_tokens()
+    torch.save(tokens, "tokens_train.pt")
