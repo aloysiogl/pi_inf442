@@ -29,6 +29,7 @@ if __name__ == "__main__":
     with torch.no_grad():
         pred = torch.argmax(model(test_dataset_tokens), dim=1)
         print(sklearn.metrics.confusion_matrix(test_tar.detach().numpy(), pred.detach().numpy()))
+        print("Dataset size: ", test_tar.shape[0])
 
 
 
