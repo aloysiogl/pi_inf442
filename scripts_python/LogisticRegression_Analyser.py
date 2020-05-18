@@ -1,4 +1,4 @@
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegressionCV
 from src_python.Dataset import Dataset
 import numpy as np
 
@@ -6,11 +6,11 @@ if __name__ == "__main__":
     train = Dataset("../data/representation.train.npy", True, "../data/true_labels.train.npy")
     testa = Dataset("../data/representation.train.npy", True, "../data/true_labels.testa.npy")
 
-    # Data normalization
-    row_sums = train.data.sum(axis=1)
-    train.data = train.data / row_sums[:, np.newaxis]
-    row_sums = testa.data.sum(axis=1)
-    testa.data = testa.data / row_sums[:, np.newaxis]
+    # # Data normalization
+    # row_sums = train.data.sum(axis=1)
+    # train.data = train.data / row_sums[:, np.newaxis]
+    # row_sums = testa.data.sum(axis=1)
+    # testa.data = testa.data / row_sums[:, np.newaxis]
 
     labels = [1 if x == 'I-PER' else 0 for x in train.true_labels]
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
 
     print("Running training...")
 
-    classif = LogisticRegression(multi_class='ovr', verbose=1).fit(train.data, labels)
+    classif = LogisticRegressionCV(multi_class='ovr', verbose=1).fit(train.data, labels)
 
     print("Running prediction...")
     pred = classif.predict(testa.data)
