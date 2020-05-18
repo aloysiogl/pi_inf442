@@ -9,7 +9,7 @@ class Dataset:
             self.data = np.load(dataset_location)
             self.true_labels = np.load(labels_location)
         else:
-            file = open(dataset_location, 'r')
+            file = open(dataset_location, 'r', encoding='latin1')
             lines = file.readlines()
             self.data = []
             self.true_labels = []
