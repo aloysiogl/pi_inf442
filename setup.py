@@ -16,5 +16,5 @@ setup(
     package_dir={'': 'src_python'},
     packages=find_packages(where='src_python'),
     python_requires='>=3.5, <4',
-    install_requires=['numpy', 'sklearn'],
+    install_requires=['numpy', 'sklearn', 'torch', 'tqdm'],
 )
