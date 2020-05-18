@@ -12,18 +12,16 @@ enum BaseClassifier {
     LOGISTIC_REGRESSION = 1
 };
 
-using std::vector;
-
 class OVRClassifier : public Classifier {
 public:
     OVRClassifier(Dataset& dataset, BaseClassifier classifier);
 
+    ~OVRClassifier();
+
     Class classify(Token& token);
 
 private:
-    void train();
-    vector<Dataset> datasets;
-    vector<Classifier*> classifiers;
+    std::vector<Classifier*> classifiers;
     BaseClassifier baseClassifier;
 };
 

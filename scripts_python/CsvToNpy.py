@@ -8,7 +8,7 @@ if __name__ == '__main__':
 
     orgpath = '../data/representation.' + sys.argv[1] + '.csv'
     destpath = '../data/representation.' + sys.argv[1] + '-sample.npy'
-    data = np.loadtxt(orgpath, delimiter=",")
+    data = np.loadtxt(orgpath, dtype=np.float32, delimiter=",")
     np.save(destpath, data)
 
     orgpath = '../data/true_labels.' + sys.argv[1] + '.csv'

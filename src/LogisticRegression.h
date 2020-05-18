@@ -17,15 +17,19 @@ class LogisticRegression : public Classifier {
 public:
     LogisticRegression(Dataset& dataset, int MAX_ITER = 10);
 
+    LogisticRegression(Dataset& dataset, std::vector<Class> &classes, int MAX_ITER = 10);
+
     Class classify(Token& token);
 
-    double classificationProbability(Class c, Token& token);
+    float classificationProbability(Class c, Token& token);
 
 private:
     void train();
-    double sig(double x);
+    float sig(float x);
     VectorXd grad(VectorXd& b, VectorXd& z, MatrixXd& X);
     MatrixXd lapla(VectorXd &beta, MatrixXd &X);
+
+    std::vector<Class> classes;
     VectorXd b;
     int MAX_ITER;
 };

@@ -17,14 +17,17 @@ class LinearRegression : public Classifier {
 public:
     LinearRegression(Dataset& dataset);
 
+    LinearRegression(Dataset& dataset, std::vector<Class> &classes);
+
     Class classify(Token& token);
 
-    double classificationProbability(Class c, Token &token);
+    float classificationProbability(Class c, Token &token);
 
 private:
     void train();
 
     MatrixXd B;
+    std::vector<Class> classes;
 };
 
 

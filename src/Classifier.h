@@ -12,11 +12,13 @@ class Classifier {
 public:
     explicit Classifier(Dataset &trainDataset);
 
+    virtual ~Classifier();
+
     virtual Class classify(Token &token) = 0;
 
     virtual std::vector<Class> classify(Dataset &testDataset);
 
-    virtual double classificationProbability(Class c, Token &token);
+    virtual float classificationProbability(Class c, Token &token);
 
     ClassificationType getType();
 

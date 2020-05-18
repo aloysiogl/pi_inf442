@@ -15,8 +15,8 @@ public:
     Class classify(Token &token) override;
 
 private:
-    std::default_random_engine state;
     std::uniform_int_distribution<int> distribution;
+    std::default_random_engine state;
 };
 
 

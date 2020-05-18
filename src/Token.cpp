@@ -10,12 +10,12 @@ Token::Token() {
     c = UNDEFINED;
 }
 
-Token::Token(std::vector<double> &v, Class c) {
+Token::Token(std::vector<float> &v, Class c) {
     this->v = v;
     this->c = c;
 }
 
-std::vector<double> & Token::getData() {
+std::vector<float> & Token::getData() {
     return v;
 }
 
@@ -31,12 +31,12 @@ int Token::size() const {
     return v.size();
 }
 
-double &Token::operator[](int idx) {
+float &Token::operator[](int idx) {
     return v[idx];
 }
 
-double Token::dist(Token &t) {
-    double d = 0.0;
+float Token::dist(Token &t) {
+    float d = 0.0;
     for (int i = 0; i < size(); i++)
         d += (v[i] - t[i]) * (v[i] - t[i]);
     return std::sqrt(d);

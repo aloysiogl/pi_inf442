@@ -20,11 +20,11 @@ public:
 
     std::vector<Token> &getTokens();
 
+    std::vector<Class> getClasses();
+
     int size() const;
 
     int dimension() const;
-
-    Dataset getBinary(Class c);
 
     ClassificationType getType() const;
 

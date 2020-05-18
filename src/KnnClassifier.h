@@ -10,7 +10,7 @@
 
 class KnnClassifier : public Classifier {
 public:
-    explicit KnnClassifier(Dataset &trainDataset, int k);
+    explicit KnnClassifier(Dataset &trainDataset, int k, bool useKdTree = true);
 
     ~KnnClassifier();
 
@@ -19,6 +19,7 @@ public:
 private:
     ANNkd_tree *tree;
     int k;
+    bool useKdTree;
 };
 
 

@@ -6,6 +6,8 @@
 
 Classifier::Classifier(Dataset &trainDataset) : dataset(trainDataset), type(dataset.getType()) {}
 
+Classifier::~Classifier() {}
+
 std::vector<Class> Classifier::classify(Dataset &testDataset) {
     std::vector<Class> classes;
     classes.reserve(testDataset.getTokens().size());
@@ -18,6 +20,6 @@ ClassificationType Classifier::getType() {
     return type;
 }
 
-double Classifier::classificationProbability(Class c, Token &token) {
+float Classifier::classificationProbability(Class c, Token &token) {
     throw "Probability for classification not implemented on this classifier";
 }

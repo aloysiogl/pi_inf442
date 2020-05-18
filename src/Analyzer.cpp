@@ -62,6 +62,7 @@ void Analyzer::printAnalysis() {
         std::cout << std::endl;
     }
     std::cout << "OVERALL ACCURACY: " << overall() << std::endl;
+    std::cout << "TRUE POSITIVE RATE: " << sensitivity() << std::endl;
     std::cout << "F SCORE: " << fScore() << std::endl;
 }
 
@@ -85,26 +86,30 @@ int Analyzer::falsePositive(Class c) {
     return confusionMatrix[nClasses][c] - confusionMatrix[c][c];
 }
 
-double Analyzer::overall(Class c) {
-    return (double) (truePositive(c) + trueNegative(c)) / (double) confusionMatrix[nClasses][nClasses];
+float Analyzer::overall(Class c) {
+    return (float) (truePositive(c) + trueNegative(c)) / (float) confusionMatrix[nClasses][nClasses];
 }
 
-double Analyzer::precision(Class c) {
-    return (double) truePositive(c) / (double) (truePositive(c) + falsePositive(c));
+float Analyzer::precision(Class c) {
+    return (float) truePositive(c) / (float) (truePositive(c) + falsePositive(c));
 }
 
-double Analyzer::negativePredictedValue(Class c) {
-    return (double) trueNegative(c) / (double) (trueNegative(c) + falseNegative(c));
+float Analyzer::negativePredictedValue(Class c) {
+    return (float) trueNegative(c) / (float) (trueNegative(c) + falseNegative(c));
 }
 
-double Analyzer::sensitivity(Class c) {
-    return (double) truePositive(c) / (double) (truePositive(c) + falseNegative(c));
+float Analyzer::sensitivity(Class c) {
+    return (float) truePositive(c) / (float) (truePositive(c) + falseNegative(c));
 }
 
-double Analyzer::specificity(Class c) {
-    return (double) trueNegative(c) / (double) (trueNegative(c) + falsePositive(c));
+float Analyzer::specificity(Class c) {
+    return (float) trueNegative(c) / (float) (trueNegative(c) + falsePositive(c));
 }
 
-double Analyzer::fScore(Class c) {
+float Analyzer::falseAlarmRate(Class c) {
+    return (float) falsePositive(c) / (float) (falsePositive(c) + trueNegative(c));
+}
+
+float Analyzer::fScore(Class c) {
     return 2.0 * precision(c) * sensitivity(c) / (precision(c) + sensitivity(c));
 }

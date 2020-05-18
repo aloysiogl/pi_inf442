@@ -2,7 +2,6 @@
 // Created by igor on 15/05/2020.
 //
 
-#include <complex>
 #include <string>
 #include <sstream>
 #include "Dataset.h"
@@ -14,6 +13,13 @@ Dataset::Dataset(const std::string &name, ClassificationType type) : type(type) 
 
 std::vector<Token> &Dataset::getTokens() {
     return tokens;
+}
+
+std::vector<Class> Dataset::getClasses() {
+    std::vector<Class> classes(size());
+    for (int i = 0; i < size(); i++)
+        classes[i] = tokens[i].getClass();
+    return classes;
 }
 
 int Dataset::size() const {
@@ -40,7 +46,7 @@ void Dataset::loadNpy(const std::string &name) {
 
     std::string path("../data/representation." + name + ".npy");
     cnpy::NpyArray dataArr = cnpy::npy_load(path);
-    auto *data = dataArr.data<double>();
+    auto *data = dataArr.data<float>();
 
     path = "../data/true_labels." + name + ".npy";
     cnpy::NpyArray labelArr = cnpy::npy_load(path);
@@ -52,7 +58,7 @@ void Dataset::loadNpy(const std::string &name) {
     tokens.reserve(n);
 
     for (int i = 0; i < n; i++) {
-        std::vector<double> v(dsize);
+        std::vector<float> v(dsize);
         for (int j = 0; j < dsize; j++)
             v[j] = data[dsize * i + j];
 
@@ -90,7 +96,7 @@ void Dataset::loadCsv(const std::string &dataName) {
     if (label.fail())
         throw std::invalid_argument("Label file " + dataName + " not found.");
 
-    std::vector<double> row;
+    std::vector<float> row;
     Class c;
     std::string lineData, lineLabel;
 
@@ -100,7 +106,7 @@ void Dataset::loadCsv(const std::string &dataName) {
 
         std::string word;
         while (getline(s, word, ',')) {
-            double val = std::strtod(word.c_str(), nullptr);
+            float val = std::strtof(word.c_str(), nullptr);
             row.push_back(val);
         }
 
@@ -128,18 +134,6 @@ void Dataset::loadCsv(const std::string &dataName) {
 
     data.close();
     label.close();
-}
-
-Dataset Dataset::getBinary(Class c) {
-    Dataset newDataset = *this;
-    newDataset.setType(BINARY);
-    for (int i = 0; i < size(); ++i){
-        if ((Class)(*this)[i].getClass() == c)
-            newDataset[i].setClass((Class) 0);
-        else newDataset[i].setClass((Class) 1);
-    }
-
-    return newDataset;
 }
 
 void Dataset::setType(ClassificationType type) {
