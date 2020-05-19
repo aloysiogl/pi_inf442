@@ -11,20 +11,21 @@ from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
 from torch import optim
 from tqdm import tqdm
+import sys
 
 from src_python.ModuleRegex import ModuleRegex
 
 from src_python.Dataset import Dataset
 
 if __name__ == "__main__":
-    train_file_name = "eng.train"
+    train_file_name = sys.argv[1]
 
     # Loading dataset
     train_dataset = Dataset("../datasets/" + train_file_name)
     train_dataset_tokens = torch.load("../datasets/" + train_file_name + "_tokens_regex.pt").float()
 
     # Extracting target values
-    train_tar = torch.tensor([0 if x == 'I-PER' else 1 for x in train_dataset.true_labels])
+    train_tar = torch.tensor([0 if x == 'I-PER' or x == 'B-per' else 1 for x in train_dataset.true_labels])
 
     # Generating dataset and data loader
     train_ds = TensorDataset(train_dataset_tokens, train_tar)
@@ -34,7 +35,7 @@ if __name__ == "__main__":
     model = ModuleRegex(train_dataset_tokens.shape[1])
 
     # Optimizer
-    loss_func = nn.CrossEntropyLoss(weight=torch.tensor([5, 1]).float())
+    loss_func = nn.CrossEntropyLoss(weight=torch.tensor([15, 1]).float())
     opt = optim.SGD(model.parameters(), lr=0.01)
 
     epochs = 10
