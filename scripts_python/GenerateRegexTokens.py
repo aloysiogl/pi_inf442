@@ -10,8 +10,8 @@ from src_python.Dataset import Dataset
 import torch
 
 if __name__ == "__main__":
-    train_file_name = "eng.train"
-    test_file_name = "eng.testa"
+    train_file_name = sys.argv[1]
+    test_file_name = sys.argv[2]
 
     # Load datasets
     train_dataset = Dataset("../datasets/"+train_file_name)
