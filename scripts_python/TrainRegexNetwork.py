@@ -18,7 +18,7 @@ from src_python.ModuleRegex import ModuleRegex
 from src_python.Dataset import Dataset
 
 if __name__ == "__main__":
-    train_file_name = sys.argv[1]
+    train_file_name = "eng.train"
 
     # Loading dataset
     train_dataset = Dataset("../datasets/" + train_file_name)
