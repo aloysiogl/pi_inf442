@@ -7,6 +7,7 @@ os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 import sklearn.linear_model
 import torch
+import numpy as np
 
 from torch.utils.data import TensorDataset
 import sys
@@ -30,13 +31,15 @@ if __name__ == "__main__":
     test_ds = TensorDataset(test_dataset_tokens, test_tar)
 
     model = ModuleRegex(test_dataset_tokens.shape[1])
-    model.load_state_dict(torch.load("models/regex_model.pt"))
+    model.load_state_dict(torch.load("../models/regex_model.pt"))
 
     model.eval()
     with torch.no_grad():
         pred = torch.argmax(model(test_dataset_tokens), dim=1)
         test_tar = test_tar.detach().numpy()
         pred = pred.detach().numpy()
+
+        print('Confusion matrix:')
         print(sklearn.metrics.confusion_matrix(test_tar, pred))
 
         test_tar = np.array(test_tar == 0, dtype=int)
