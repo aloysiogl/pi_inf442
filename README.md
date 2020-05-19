@@ -42,6 +42,10 @@ We placed all raw datasets in `datasets`, and a `data` directory must be downloa
 from <https://www.enseignement.polytechnique.fr/informatique/INF442/PI/data.zip>,
 unzipped and placed here for the code to work. 
 
+### Report
+
+For more information on the project we've disponibilized the report in the folder report
+
 ## Instructions to run the project
 
 Essential libraries: cmake, eigen, zlib and unzip.
@@ -72,6 +76,9 @@ make
 This creates a `bin` directory with all the executables of the project.
 All analyzers, except Custom_Analyzer are configured to run on CONLL2003
 english dataset with test a. 
+
+If you wish to train and run a RegEX-NN go to the folder `scripts_python` 
+and run the script `regex_network.sh`.
 
 Look at datasets/aws.sh if you want more datasets to play with, and look
 at datasets/results.txt if you wish to view the results we obtained directly.
