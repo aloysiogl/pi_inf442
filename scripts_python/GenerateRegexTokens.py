@@ -1,3 +1,10 @@
+import sys, os
+from pathlib import Path
+currentDirectory = os.getcwd()
+path = Path(currentDirectory)
+sys.path.insert(0, str(path.parent))
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 from src_python.RegexTokenizer import RegexTokenizer
 from src_python.Dataset import Dataset
 import torch

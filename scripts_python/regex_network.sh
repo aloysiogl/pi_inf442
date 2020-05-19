@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-python GenerateRegexNetwork.py
-python TrainRegexNetwork.py
-python VerifyRegexNetwork.py
+python3 GenerateRegexTokens.py
+python3 TrainRegexNetwork.py
+python3 VerifyRegexNetwork.py

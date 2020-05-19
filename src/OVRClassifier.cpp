@@ -24,8 +24,8 @@ OVRClassifier::OVRClassifier(Dataset &dataset, BaseClassifier classifier) : Clas
 }
 
 OVRClassifier::~OVRClassifier() {
-    for (int i = 0; i < classifiers.size(); i++)
-        delete classifiers[i];
+    for (auto & classifier : classifiers)
+        delete classifier;
 }
 
 Class OVRClassifier::classify(Token &token) {
